@@ -2,7 +2,7 @@
 
 #include "Pinball.h"
 #include "SplineActor.h"
-#include "PinballSplineComponent.h"
+#include "Components/SplineComponent.h"
 #include "Components/SplineMeshComponent.h"
 #include "Engine/CullDistanceVolume.h"
 
@@ -12,7 +12,7 @@ ASplineActor::ASplineActor(const FObjectInitializer& ObjectInitializer)
 {
 	SetFlags(RF_Transactional);
 
-	SplineComponent = ObjectInitializer.CreateDefaultSubobject < UPinballSplineComponent >(this, TEXT("SplineComp"));
+	SplineComponent = ObjectInitializer.CreateDefaultSubobject < USplineComponent >(this, TEXT("SplineComp"));
 	//static ConstructorHelpers::FObjectFinder<UStaticMesh> StaticMeshOb(TEXT("/Game/Meshes/TemplateCube_Rounded.TemplateCube_Rounded"));
 	USceneComponent* SceneComponent = ObjectInitializer.CreateDefaultSubobject < USceneComponent >(this, TEXT("SceneComp"));
 	RootComponent = SceneComponent;

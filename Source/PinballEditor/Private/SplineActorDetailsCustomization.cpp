@@ -15,7 +15,6 @@
 #include "PropertyCustomizationHelpers.h"
 #include "SplineActor.h"
 #include "Components/SplineComponent.h"
-#include "PinballSplineComponent.h"
 #include "ScopedTransaction.h"
 #include "SNumericEntryBox.h"
 

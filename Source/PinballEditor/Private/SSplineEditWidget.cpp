@@ -3,8 +3,7 @@
 #include "PinballEditor.h"
 #include "SSplineEditWidget.h"
 #include "SplineActor.h"
-//#include "Components/SplineComponent.h"
-#include "PinballSplineComponent.h"
+#include "Components/SplineComponent.h"
 #include "MessageLog.h"
 #include "ScopedTransaction.h"
 
@@ -899,7 +898,7 @@ FReply SSplineEditWidget::OnMouseButtonUp( const FGeometry& InMyGeometry, const 
 				SplinePointUnderMouse = DroppedPoint;
 
 				UClass* ActorClass = ASplineActor::StaticClass();
-				UProperty* SplineInfoProperty = FindField<UProperty>(USplineComponent::StaticClass(), GET_MEMBER_NAME_CHECKED(USplineComponent, SplineInfo));
+				UProperty* SplineInfoProperty = FindField<UProperty>(USplineComponent::StaticClass(), GET_MEMBER_NAME_CHECKED(USplineComponent, SplineCurves));
 				SplineActor->SplineComponent->bSplineHasBeenEdited = true;
 
 				// Notify that the spline has been modified
@@ -1260,10 +1259,6 @@ void SSplineEditWidget::ShowOptionsMenuAt(const FVector2D& ScreenSpacePosition, 
 				return;
 			}
 
-			FSplinePoint2D& PointToEdit = Self->SplinePoints[MatchingIndex];
-			UClass* ActorClass = ASplineActor::StaticClass();
-			UProperty* SplineInfoProperty = FindField<UProperty>(USplineComponent::StaticClass(), GET_MEMBER_NAME_CHECKED(USplineComponent, SplineInfo));
-
 			// Scoped transaction for the undo buffer
 			const FScopedTransaction Transaction(LOCTEXT("DeleteSplinePoint", "Delete Spline Point"));
 
@@ -1274,7 +1269,7 @@ void SSplineEditWidget::ShowOptionsMenuAt(const FVector2D& ScreenSpacePosition, 
 			}
 
 			// Delete the spline point
-			Self->SplineActor->SplineComponent->PinballRemoveSplinePoint(MatchingIndex);
+			Self->SplineActor->SplineComponent->RemoveSplinePoint(MatchingIndex);
 			Self->SplineActor->SplineComponent->bSplineHasBeenEdited = true;
 
 			// Don't call PostEditChangeProperty here because it ends up forcing the spline edit widget to recalculate zoom & offset, so it makes you lose your place if you have zoomed or panned
@@ -1322,9 +1317,6 @@ void SSplineEditWidget::ShowOptionsMenuAt(const FVector2D& ScreenSpacePosition, 
 			// Scoped transaction for the undo buffer
 			const FScopedTransaction Transaction(LOCTEXT("InsertSplinePoint", "Insert Spline Point"));
 
-			UClass* ActorClass = ASplineActor::StaticClass();
-			UProperty* SplineInfoProperty = FindField<UProperty>(USplineComponent::StaticClass(), GET_MEMBER_NAME_CHECKED(USplineComponent, SplineInfo));
-
 			Self->SplineActor->SplineComponent->Modify();
 			if (AActor* Owner = Self->SplineActor->SplineComponent->GetOwner())
 			{
@@ -1337,7 +1329,7 @@ void SSplineEditWidget::ShowOptionsMenuAt(const FVector2D& ScreenSpacePosition, 
 			if (IndexToInsert < Self->SplineActor->SplineComponent->GetNumberOfSplinePoints())
 			{
 				
-				Self->SplineActor->SplineComponent->PinballAddSplinePointAtIndex(NewSplinePointLocation3D, IndexToInsert, ESplineCoordinateSpace::Local);
+				Self->SplineActor->SplineComponent->AddSplinePointAtIndex(NewSplinePointLocation3D, IndexToInsert, ESplineCoordinateSpace::Local);
 			}
 			else
 			{
