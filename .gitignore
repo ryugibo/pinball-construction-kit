@@ -19,6 +19,7 @@ Binaries/*
 !Binaries/*/
 Binaries/*/**
 !Binaries/*/UE4Editor-*.dll
+Binaries/*/*-DebugGame.dll
 Plugins/*/Binaries/*
 !Plugins/*/Binaries/*/
 Plugins/*/Binaries/*/**
