@@ -17,7 +17,7 @@ ASplineActor::ASplineActor(const FObjectInitializer& ObjectInitializer)
 	USceneComponent* SceneComponent = ObjectInitializer.CreateDefaultSubobject < USceneComponent >(this, TEXT("SceneComp"));
 	RootComponent = SceneComponent;
 
-	SplineComponent->AttachTo(SceneComponent);
+	SplineComponent->AttachToComponent(SceneComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	SplineComponent->AddSplinePoint(FVector(100, 100, 0), ESplineCoordinateSpace::Local);
 	SplineComponent->AddSplinePoint(FVector(0, 100, 0), ESplineCoordinateSpace::Local);
@@ -72,7 +72,7 @@ USplineMeshComponent* ASplineActor::AddPinballSplineMeshComponent(bool bManualAt
 					}
 					else
 					{
-						NewSceneComp->AttachTo(RootComponent);
+						NewSceneComp->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 					}
 				}
 	
