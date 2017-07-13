@@ -1,0 +1,35 @@
+# Ignore files for Visual Studio 2015
+.vs/
+*.sln
+*.VC.db
+*.VC.opendb
+
+# Builds
+Build/*
+
+# Whitelist PakBlacklist-<BuildConfiguration>.txt files
+!Build/*/
+Build/*/**
+!Build/*/PakBlacklist*.txt
+
+# Don't ignore icon files in Build
+!Build/**/*.ico
+
+Binaries/*
+!Binaries/*/
+Binaries/*/**
+!Binaries/*/UE4Editor-*.dll
+Plugins/*/Binaries/*
+!Plugins/*/Binaries/*/
+Plugins/*/Binaries/*/**
+!Plugins/*/Binaries/*/UE4Editor-*.dll
+
+# Ignore files for Unreal Engine 4
+Intermediate/
+DerivedDataCache/
+Saved/
+
+# Ignore files for vim editor
+*.swp
+
+
