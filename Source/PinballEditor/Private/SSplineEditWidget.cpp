@@ -480,6 +480,8 @@ void SSplineEditWidget::OnPropertyChanged(UObject* ObjectBeingModified, FPropert
 
 int32 SSplineEditWidget::OnPaint( const FPaintArgs& Args, const FGeometry& AllottedGeometry, const FSlateRect& WidgetClippingRect, FSlateWindowElementList& OutDrawElements, int32 LayerId, const FWidgetStyle& InWidgetStyle, bool bParentEnabled ) const
 {
+	OutDrawElements.PushClip(FSlateClippingZone(AllottedGeometry));
+
 	// Draw background border layer
 	{
 		const FSlateBrush* ThisBackgroundImage = BackgroundImage.Get();
@@ -488,7 +490,6 @@ int32 SSplineEditWidget::OnPaint( const FPaintArgs& Args, const FGeometry& Allot
 			LayerId,
 			AllottedGeometry.ToPaintGeometry(),
 			ThisBackgroundImage,
-			WidgetClippingRect,
 			ESlateDrawEffect::None,
 			InWidgetStyle.GetColorAndOpacityTint() * ThisBackgroundImage->TintColor.GetColor( InWidgetStyle )
 			);
@@ -549,7 +550,6 @@ int32 SSplineEditWidget::OnPaint( const FPaintArgs& Args, const FGeometry& Allot
 				SplineStartDir,
 				SplineEnd,
 				SplineEndDir,
-				WidgetClippingRect,
 				SplineThickness,
 				ESlateDrawEffect::None,
 				InWidgetStyle.GetColorAndOpacityTint() * FColor::White * SplineColorScale);
@@ -577,10 +577,6 @@ int32 SSplineEditWidget::OnPaint( const FPaintArgs& Args, const FGeometry& Allot
 		const FSplinePoint2D* CurrentSplinePoint = &SplinePoints[SplinePointIndex];
 		const bool bIsMouseOverPoint = (SplinePointUnderMouse != NULL && SplinePointUnderMouse == CurrentSplinePoint) || (PointBeingDragged != nullptr && PointBeingDragged == CurrentSplinePoint);
 
-		// Draw the spline point
-		FSlateRect SplinePointClippingRect = TransformRect(AllottedGeometry.GetAccumulatedLayoutTransform(), FSlateRect(CurrentSplinePoint->Position, CurrentSplinePoint->Position + SSplineEditWidgetDefs::PointSize));
-		// Intersect the spline point's clipping rectangle with our widget clipping rectangle to ensure the spline point is not draw outside the bounds of the widget
-		SplinePointClippingRect = SplinePointClippingRect.IntersectionWith(WidgetClippingRect);
 		const auto SplinePointPaintGeometry = AllottedGeometry.ToPaintGeometry(CurrentSplinePoint->Position, SSplineEditWidgetDefs::PointSize);
 
 		/** Different blend color for spline points that are currently selected */
@@ -591,11 +587,11 @@ int32 SSplineEditWidget::OnPaint( const FPaintArgs& Args, const FGeometry& Allot
 			LayerId,
 			SplinePointPaintGeometry,
 			bIsMouseOverPoint ? HoveredSplinePointImageBrush.Get() : SplinePointImageBrush.Get(),
-			SplinePointClippingRect,
 			ESlateDrawEffect::None,
 			DrawColor
 			);
 	}
+	OutDrawElements.PopClip();
 
 	return LayerId;
 }
