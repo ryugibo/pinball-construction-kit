@@ -30,7 +30,7 @@ TSharedRef<IDetailCustomization> FSplineActorDetailsCustomization::MakeInstance(
 
 void FSplineActorDetailsCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailLayout)
 {
-	const TArray< TWeakObjectPtr<UObject> >& SelectedObjects = DetailLayout.GetDetailsView().GetSelectedObjects();
+	const TArray< TWeakObjectPtr<UObject> >& SelectedObjects = DetailLayout.GetDetailsView()->GetSelectedObjects();
 	if (SelectedObjects.Num() > 1)
 	{
 		//Can only handle single selection
