@@ -10,7 +10,7 @@ public class PinballTarget : TargetRules
 	{
 		Type = TargetType.Game;
         ExtraModuleNames.Add("Pinball");
-        if (UEBuildConfiguration.bBuildEditor)
+        if (bBuildEditor)
         {
             ExtraModuleNames.Add("PinballEditor");
         }
