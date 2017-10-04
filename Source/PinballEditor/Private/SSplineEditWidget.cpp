@@ -67,12 +67,12 @@ void SSplineEditWidget::Construct( const FArguments& InArgs )
 	// Dummy brush
 	BackgroundImage = FEditorStyle::GetBrush("ProgressBar.ThinBackground");
 
-	FString SplinePointImagePath = FPaths::GameContentDir() / TEXT("Editor/Slate/Icons/SplinePoint_Normal.png");
+	FString SplinePointImagePath = FPaths::ProjectContentDir() / TEXT("Editor/Slate/Icons/SplinePoint_Normal.png");
 	FName SplinePointBrushName = FName(*SplinePointImagePath);
 	SplinePointImageBrushPtr = MakeShareable(new FSlateDynamicImageBrush(SplinePointBrushName, SSplineEditWidgetDefs::PointSize));
 	SplinePointImageBrush = SplinePointImageBrushPtr.Get();
 
-	FString HoveredSplinePointImagePath = FPaths::GameContentDir() / TEXT("Editor/Slate/Icons/SplinePoint_Hover.png");
+	FString HoveredSplinePointImagePath = FPaths::ProjectContentDir() / TEXT("Editor/Slate/Icons/SplinePoint_Hover.png");
 	FName HoveredSplinePointBrushName = FName(*HoveredSplinePointImagePath);
 	HoveredSplinePointImageBrushPtr = MakeShareable(new FSlateDynamicImageBrush(HoveredSplinePointBrushName, SSplineEditWidgetDefs::PointSize));
 	HoveredSplinePointImageBrush = HoveredSplinePointImageBrushPtr.Get();
