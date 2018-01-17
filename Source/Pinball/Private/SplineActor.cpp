@@ -85,7 +85,7 @@ USplineMeshComponent* ASplineActor::AddPinballSplineMeshComponent(bool bManualAt
 			NewActorComp->RegisterComponent();
 	
 			UWorld* World = GetWorld();
-			if (!bRunningUserConstructionScript && World && bIsSceneComponent)
+			if (!IsRunningUserConstructionScript() && World && bIsSceneComponent)
 			{
 				UPrimitiveComponent* NewPrimitiveComponent = Cast<UPrimitiveComponent>(NewActorComp);
 				if (NewPrimitiveComponent /*&& ACullDistanceVolume::CanBeAffectedByVolumes(NewPrimitiveComponent)*/)
