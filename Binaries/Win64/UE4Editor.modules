@@ -1,0 +1,8 @@
+{
+	"BuildId": "3709383",
+	"Modules": 
+	{
+		"Pinball": "UE4Editor-Pinball.dll",
+		"PinballEditor": "UE4Editor-PinballEditor.dll"
+	}
+}
