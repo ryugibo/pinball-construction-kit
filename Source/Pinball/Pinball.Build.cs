@@ -4,13 +4,13 @@ using UnrealBuildTool;
 
 public class Pinball : ModuleRules
 {
-    public Pinball(ReadOnlyTargetRules Target)
-        : base(Target)
+	public Pinball(ReadOnlyTargetRules Target)
+		: base(Target)
 	{
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore"}
-            );
+			);
 
-        PrivateDependencyModuleNames.AddRange(
+		PrivateDependencyModuleNames.AddRange(
 			new string[] {
 				"RenderCore",
 				"Slate",
